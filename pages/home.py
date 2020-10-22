@@ -4,15 +4,15 @@ import pandas as pd
 
 @st.cache(allow_output_mutation=True)  # add caching so we load the data only once
 def load_data():
-    fifa19_df = pd.read_csv("data/fifa19.csv", encoding="UTF-8", index_col=0)
-    worldcities_df = pd.read_csv("data/worldcities.csv", encoding="UTF-8", index_col=0)
-    return fifa19_df, worldcities_df
+    fifa = pd.read_csv("data/fifa19.csv", encoding="UTF-8", index_col=0)
+    countries = pd.read_csv("data/countries.csv", encoding="UTF-8")
+    return fifa, countries
 
 
 def write():
     st.header("Overview of the Data")
 
-    fifa_df, world_df = load_data()
+    fifa, countries = load_data()
 
     fifa_overview = """This tool allows users to explore a dataset from the video game "FIFA 19",
                         the 2019 version of the popular soccer video game. Below we see the
@@ -24,13 +24,13 @@ def write():
 
     gps_overview = """Since the FIFA 19 dataset did not provide geographic information on the countries listed in the
                       Nationality column, we used a second dataset to collect the GPS coordinates (latitude and 
-                      longitude) of those countries. This information was used to generate our Player World Map."""
+                      longitude) for those countries. This information was used to generate our Player World Map."""
     st.write(gps_overview)
 
     st.subheader("Preview of the FIFA 19 Dataset")
     st.write("[source link](https://www.kaggle.com/karangadiya/fifa19)")
-    st.write(fifa_df.head(20))
+    st.write(fifa.head(20))
 
-    st.subheader("Preview of the World Cities Dataset")
-    st.write("[source link](https://simplemaps.com/data/world-cities)")
-    st.write(world_df.head(20))
+    st.subheader("Preview of the Countries Dataset")
+    st.write("[source link](https://github.com/google/dspl/blob/master/samples/google/canonical/countries.csv)")
+    st.write(countries.head(20))
