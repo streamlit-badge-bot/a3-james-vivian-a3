@@ -47,14 +47,11 @@ def write():
     # Show results for top N countries
     num_countries = fifa_country_agg.shape[0]
     st.markdown('### Show Top N Countries')
-    top_countries_count = st.slider('', 0, num_countries, 50)
-    top_countries_attr = st.selectbox('Based on', options=player_stats_labels, index=3)
-    top_countries_agg = st.selectbox('Using', options=agg_functions)
-    top_countries_order = st.selectbox('Order', options=['Ascending', 'Descending'], index=1)
+    top_countries_count = st.slider('N', 0, num_countries, 50)
 
     # Select which player stats to show
     st.sidebar.markdown('### Show Player Stats')
-    show_player_stats = st.sidebar.multiselect('', options=player_stats_labels, default=['Age',
+    show_player_stats = st.sidebar.multiselect('Show in Tooltip', options=player_stats_labels, default=['Age',
                                                                                          'Overall Rating (0-100)',
                                                                                          'Potential Rating (0-100)'])
 
@@ -63,6 +60,12 @@ def write():
     agg_functions_checkbox = {}
     for a in agg_functions:
         agg_functions_checkbox[a] = st.sidebar.checkbox(a, value=a in ['Mean'])
+
+    # Select how to determine top N countries
+    st.sidebar.markdown('### Top N Countries Based On')
+    top_countries_attr = st.sidebar.selectbox('Player Stat', options=player_stats_labels, index=3)
+    top_countries_agg = st.sidebar.selectbox('Using', options=agg_functions)
+    top_countries_order = st.sidebar.selectbox('Order', options=['Ascending', 'Descending'], index=1)
 
     # Draw the world map of FIFA 19 player nationalities
     # source: https://altair-viz.github.io/gallery/index.html#maps
