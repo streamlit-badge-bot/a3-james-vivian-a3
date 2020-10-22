@@ -2,7 +2,9 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 import numpy as np
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVR
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 
@@ -89,9 +91,10 @@ def write():
     st.header("Machine Learning Exploration")
     st.write("""Now we will examine how well we can predict attributes of a player using this
         dataset. Below you can select a target variable and one or many predictor variables,
-        and a random forest model will be built using the input. You can see the MSE of the
-        model on the testing portion of the data, as well as a plot of the predicted vs actual
-        values.""")
+        and a support vector regression model will be built using the input. You can see the
+        MSE of the model on the testing portion of the data, as well as a plot of the residuals.
+        A residual is the difference between the predicted values and the actual values, and
+        thus for a perfect classifier all residuals would be 0.""")
     target_var = st.selectbox("Target Variable", options = correlation_options, index=1)
     features = st.multiselect("Predictor Variables", options = correlation_options)
 
@@ -102,23 +105,18 @@ def write():
         X_train, X_test, y_train, y_test = train_test_split(
             df_X, df_y, test_size=0.25)
 
-        clf = RandomForestClassifier()
+        clf = make_pipeline(StandardScaler(), SVR())
         clf.fit(X_train, y_train)
         test_preds = clf.predict(X_test)
         mse = mean_squared_error(y_test,test_preds)
         st.write("Testing MSE: %.2f" % mse)
-        ml_df = pd.DataFrame({"preds":test_preds, "y_test":y_test})
+        residuals = y_test - test_preds
+        ml_df = pd.DataFrame({"residuals":residuals, "y_test":y_test, "predictions":test_preds})
         ml_chart = alt.Chart(ml_df).mark_circle(color="#000000",size=10,opacity=.3).encode(
             x=alt.X("y_test", scale=alt.Scale(zero=False), title="Actual"),
-            y=alt.Y("preds", scale=alt.Scale(zero=False), title="Predictions")
+            y=alt.Y("residuals", scale=alt.Scale(zero=False), title="Residuals")
         ).properties(
         width=800, height=500
         )
-        line_min = np.min([np.min(y_test),np.min(test_preds)])
-        line_max = np.max([np.max(y_test),np.max(test_preds)])
-        ml_chart += alt.Chart(
-        pd.DataFrame({'var1': [line_min, line_max], 'var2': [line_min, line_max]})).mark_line().encode(
-                alt.X('var1'),
-                alt.Y('var2'),
-        ).interactive()
+        ml_chart += alt.Chart(pd.DataFrame({'y': [0]})).mark_rule().encode(y='y')
         st.write(ml_chart)
