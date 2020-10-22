@@ -16,7 +16,7 @@ def load_data():
 
 def write():
     df = load_data()
-    st.write(df.head())
+    #st.write(df.head())
 
     st.header("Feature Correlation Analysis")
     st.write("""Let's explore the relationships between some of the quantitative
@@ -77,8 +77,7 @@ def write():
         y=alt.Y(y_var, scale=alt.Scale(zero=False)),
         tooltip = ["Name","Position"]
         )
-
-    correlation = np.corrcoef(df[x_var],df[y_var])[0][1]
+    correlation = np.corrcoef(df_quant[x_var],df_quant[y_var])[0][1]
     st.write("Correlation: %.2f" % correlation)
 
     chart = chart + chart.transform_regression(x_var,y_var,method="poly",order=5).mark_line(color="#0000FF")
@@ -92,8 +91,11 @@ def write():
     st.header("Machine Learning Exploration")
     st.write("""Now we will examine how well we can predict attributes of a player using this
         dataset. Below you can select a target variable and one or many predictor variables,
-        and a support vector regression model will be built using the input. We split the dataset into a training set and a testing set, as is common practice in machine learning (see [here](https://developers.google.com/machine-learning/crash-course/training-and-test-sets/splitting-data)). You can see the
-        mean-squared-error of the model on the testing portion of the data, as well as a plot of the residuals.
+        and a support vector regression model will be built using the input. We split the dataset
+        into a training set and a testing set, as is common practice in machine learning
+        (see [here](https://developers.google.com/machine-learning/crash-course/training-and-test-sets/splitting-data)).
+        You can see the mean-squared-error of the model on the testing portion of the
+        data, as well as a plot of the residuals.
         A residual is the difference between the predicted values and the actual values, and
         thus for a perfect classifier all residuals would be 0.""")
     target_var = st.selectbox("Target Variable", options = correlation_options, index=1)
