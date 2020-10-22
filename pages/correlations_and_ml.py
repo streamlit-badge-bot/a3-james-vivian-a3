@@ -57,6 +57,7 @@ def write():
     noise = np.random.normal(0,0.3,df_quant.shape)
     df_quant_noise = df_quant + noise
     df_quant_noise["Name"] = df["Name"].copy()
+    df_quant_noise["Position"] = df["Position"].copy()
 
     x_var = st.selectbox("Independent Variable", options = correlation_options, index=0)
     y_var = st.selectbox("Dependent Variable", options = correlation_options, index=1)
@@ -68,13 +69,13 @@ def write():
         x=alt.X(x_var, scale=alt.Scale(zero=False)),
         y=alt.Y(y_var, scale=alt.Scale(zero=False)),
         color=alt.Y(color_var),
-        tooltip = ["Name"]
+        tooltip = ["Name","Position"]
         )
     else:
         chart = alt.Chart(df_quant_noise).mark_circle(color="#000000",size=10,opacity=.3).encode(
         x=alt.X(x_var, scale=alt.Scale(zero=False)),
         y=alt.Y(y_var, scale=alt.Scale(zero=False)),
-        tooltip = ["Name"]
+        tooltip = ["Name","Position"]
         )
 
     correlation = np.corrcoef(df[x_var],df[y_var])[0][1]
@@ -91,8 +92,8 @@ def write():
     st.header("Machine Learning Exploration")
     st.write("""Now we will examine how well we can predict attributes of a player using this
         dataset. Below you can select a target variable and one or many predictor variables,
-        and a support vector regression model will be built using the input. You can see the
-        MSE of the model on the testing portion of the data, as well as a plot of the residuals.
+        and a support vector regression model will be built using the input. We split the dataset into a training set and a testing set, as is common practice in machine learning (see [here](https://developers.google.com/machine-learning/crash-course/training-and-test-sets/splitting-data)). You can see the
+        mean-squared-error of the model on the testing portion of the data, as well as a plot of the residuals.
         A residual is the difference between the predicted values and the actual values, and
         thus for a perfect classifier all residuals would be 0.""")
     target_var = st.selectbox("Target Variable", options = correlation_options, index=1)
@@ -109,7 +110,7 @@ def write():
         clf.fit(X_train, y_train)
         test_preds = clf.predict(X_test)
         mse = mean_squared_error(y_test,test_preds)
-        st.write("Testing MSE: %.2f" % mse)
+        st.write("Testing MSE = $$\\frac{1}{n}\Sigma_{i=1}^n(y_i-\hat{y}_i)^2$$ = %.2f" % mse)
         residuals = y_test - test_preds
         ml_df = pd.DataFrame({"residuals":residuals, "y_test":y_test, "predictions":test_preds})
         ml_chart = alt.Chart(ml_df).mark_circle(color="#000000",size=10,opacity=.3).encode(
