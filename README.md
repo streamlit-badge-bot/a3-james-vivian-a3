@@ -1,7 +1,8 @@
 # CMU Interactive Data Science Assigment 3
 
 * **Team members**: jmahler@andrew.cmu.edu and vivianle@andrew.cmu.edu
-* **Online URL**: https://s4a.streamlit.io/cmu-ids-2020/a3-template/master/streamlit_app.py
+* **Online URL**:  https://share.streamlit.io/cmu-ids-2020/a3-james-vivian-a3
+* **Template URL**: https://s4a.streamlit.io/cmu-ids-2020/a3-template/master/streamlit_app.py
 
 ## Instructions
 
