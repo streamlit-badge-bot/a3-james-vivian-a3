@@ -17,7 +17,7 @@ def write_page(page):
 
 def main():
 
-    st.title("Exploring Players in FIFA 19")
+    st.title("Exploring Football Players in FIFA 19")
 
     st.sidebar.title('Navigation')
     select_page = st.sidebar.radio("Go to", list(PAGES.keys()))
