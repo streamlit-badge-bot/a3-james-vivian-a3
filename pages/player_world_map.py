@@ -83,18 +83,16 @@ def write():
     background = alt.layer(
         alt.Chart(sphere).mark_geoshape(fill='lightblue'),
         alt.Chart(graticule).mark_geoshape(stroke='white', strokeWidth=0.2),
-        # alt.Chart(source).mark_geoshape(fill='#98FB98', stroke='black')
         alt.Chart(source).mark_geoshape(fill='#9eb5a8', stroke='black')
     ).project(
         type='equirectangular',
 
     ).properties(width=800, height=400).configure_view(stroke=None)
 
-    hover = alt.selection(type='single', on='mouseover', nearest=True, fields=['Lat', 'Lng'])
+    hover = alt.selection(type='single', on='mouseover', nearest=True, fields=['Latitude', 'Longitude'])
 
     # Get fields to show in tooltip
     tooltip_info = ['Nationality Country']
-
     for player_stat_label in show_player_stats:
         player_stat_column = player_stats_dict.get(player_stat_label)
         for agg_function, function_checked in agg_functions_checkbox.items():
@@ -107,19 +105,10 @@ def write():
         tooltip=tooltip_info
     )
 
-    # text = base.mark_text(dy=-5, align='right').encode(
-    #     alt.Text('Nationality Country', type='nominal'),
-    #     opacity=alt.condition(~hover, alt.value(0), alt.value(1)),
-    # )
-
     points = base.mark_point().encode(
         color=alt.condition(~hover, alt.value('#014600'), alt.value('red')),
-    #     color=alt.Color('Overall_mean', scale=alt.Scale(scheme='dark2')),
-    # #     color=alt.Color('Overall_mean', bin=alt.Bin(maxbins=5)),
         size=alt.condition(~hover, alt.value(30), alt.value(100))
     ).add_selection(hover)
-
-    # st.write(background + points + text)
 
     st.write(background + points)
 
