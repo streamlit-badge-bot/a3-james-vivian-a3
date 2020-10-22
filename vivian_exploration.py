@@ -37,7 +37,7 @@ st.write("""Let's explore the distribution of footballers around the world.
             grouped by player nationality.""")
 
 # Load in the data
-fifa_country_avg = load_data('clean_fifa_country_avg.csv')
+fifa_country_avg = load_data('../data/clean_fifa_country_avg.csv')
 
 # Add sliders and checkboxes for users to configure visualization
 player_stats_dict, player_stats_labels, player_stats_columns = load_player_stats()
