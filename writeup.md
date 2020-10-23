@@ -16,7 +16,7 @@ TODO: **A clear description of the goals of your project.** Describe the questio
 
 ## Design
 
-#### Player World Map
+### Player World Map
 
 <b>How to Interact</b>
 
@@ -41,14 +41,14 @@ Lastly, we moved the multiselect dropdown for specifying which player stats to s
 
 ## Development
 
-#### Player World Map
+### Player World Map
 
 To create the interactive Player World Map we used the original FIFA 19 players dataset from Kaggle and a Countries dataset containing geographic information on countries around the world from Google’s Dataset Publishing Language repository. We found that we needed the Countries dataset to plot the data points on the world map since the original dataset did not contain latitude and longitude information for the countries of player’s nationalities.
 
 We needed to do some data cleaning to merge the 2 datasets. The Countries dataset was initially missing 26 countries from the Nationality column in the FIFA 19 dataset. On closer inspection, all but 1 of these discrepancies were due to differences in naming convention (e.g. specifying the individual countries England, Scotland, Wales, and Northern Ireland instead of listing them as United Kingdom or using different symbols and abbreviations). We created a new column in the FIFA 19 dataset ‘Player Nationality’ that was a copy of the ‘Nationality’ column, except it used the Countries dataset naming convention. The only Nationality that we did not have geographic information for was Curaçao; we found its geographic coordinates on Google and added it to the dataset manually.
 
 
-#### Additional Info
+### Additional Info
 
 <b>Estimated Time Spent Developing App</b>
 40 hours
