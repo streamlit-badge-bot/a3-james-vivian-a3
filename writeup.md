@@ -122,6 +122,15 @@ Lastly, we moved the multiselect dropdown for specifying which player stats to s
 
 ## Development
 
+### Correlation Plots
+
+To create the correlation plots, we first had to decide which variables would be useful and insightful for this tool. After looking through all the columns, we determined a set of quantitative variables to be used for the tool, eliminating some qualitative variables such as nationality, position played, etc. Then, after creating the initial tool, we had to decide what extra features would be useful, and decided that a fitted regression line layed over the scatter plot would be helpful, as well as a tooltip feature that allows users to see which player each point represented, and what position they played. We also determined that adding a bit of noise to the variables would make the scatter plot much more interpretable, as many of the variables are discrete-valued and thus have many overlapping points.
+
+### Machine Learning Tool
+
+This tool builds upon the previous tool, and thus we used the same dataset. The development process here primarily had to do with which machine learning models would be used. Random forest k-nearest-neighbors were tried, but they output discrete values that made the plot have many overlapping lines. Kernel regression was also tried but was very slow. Then I tried support vector regression, which had neither of these problems, so this is what I ended up using.
+
+
 ### Player World Map
 
 To create the interactive Player World Map we used the original FIFA 19 players dataset from Kaggle and a Countries dataset containing geographic information on countries around the world from Google’s Dataset Publishing Language repository. We found that we needed the Countries dataset to plot the data points on the world map since the original dataset did not contain latitude and longitude information for the countries of player’s nationalities.
