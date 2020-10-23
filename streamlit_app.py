@@ -1,5 +1,5 @@
+# James Mahler (jmahler) and Vivian Lee (vivianle)
 import streamlit as st
-
 import pages.home
 import pages.player_world_map
 import pages.correlations_and_ml
