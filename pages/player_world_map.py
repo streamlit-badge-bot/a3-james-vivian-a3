@@ -71,9 +71,9 @@ def write():
 
     # Select which player stats to show
     st.sidebar.markdown('### Show Player Stats')
-    show_player_stats = st.sidebar.multiselect('Show in Tooltip', options=player_stats_labels, default=['Age',
-                                                                                         'Overall Rating (0-100)',
-                                                                                         'Potential Rating (0-100)'])
+    show_player_stats = st.sidebar.multiselect('Show in Tooltip and Table',
+                                               options=player_stats_labels,
+                                               default=['Age', 'Overall Rating (0-100)', 'Potential Rating (0-100)'])
 
     # Select which aggregate functions to include
     st.sidebar.markdown('### Show Aggregate Functions')
@@ -137,5 +137,5 @@ def write():
     st.write(background + points)
 
     st.subheader("Data Shown on Map")
-    st.write(show_df)
+    st.write(show_df[tooltip_info])
 
