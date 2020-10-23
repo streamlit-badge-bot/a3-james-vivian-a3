@@ -1,6 +1,9 @@
 # Exploring Football Players in FIFA 19
 
-![A screenshot of your application. Could be a GIF.](screenshot.png)
+![Home Page](screenshots/home.png)
+![Home Page](screenshots/correlation.png)
+![Home Page](screenshots/ml.png)
+![Home Page](screenshots/player_world_map.png)
 
 
 Association football (soccer) is undeniably the most popular sport in the world. In this project, we create interactive 
@@ -12,9 +15,44 @@ are provided in the Project Goals section below.
 
 ## Project Goals
 
-TODO: **A clear description of the goals of your project.** Describe the question that you are enabling a user to answer. The question should be compelling and the solution should be focused on helping users achieve their goals. 
+Motivated by a shared interest in sports and data analysis, we chose to explore a complete dataset of the players in FIFA 19, a football simulation video game. This data was sourced from [Kaggle](https://www.kaggle.com/karangadiya/fifa19) and provided by Karan Gadiya, a Master’s student studying Data Science at the University of Virginia.
+
+We selected this dataset because it provides a comprehensive list of information (e.g. different skill statistics, ratings, demographic details, and estimated monetary values) for all of the players. 
+
+Though it’s difficult to reduce everything about every player down to a simple card of stats, EA Sports (the developers behind FIFA 19) put [a considerable effort](https://www.fifplay.com/how-accurate-are-fifa-ratings-compared-to-real-life-stats/) into collecting and maintaining their database of player information. As mentioned in the linked article, they employ a team of 25 EA producers, 400 outside data contributors, and 6000 volunteer FIFA Data Reviewers (composed of talent scouts, coaches, and fans around the world). This diverse and knowledgeable well of information makes the player stats in FIFA 19 credible and supports the use of this data to conduct our analysis.
+
+In this project, we create interactive visualizations that enable users to learn more about the player data and demonstrate how we use them to answer the following questions:
+
+1. What are the correlations between different player attributes?
+  * Overall Rating vs Wage: Correlation of .63; there are many significant outliers on the wage scale. Neymar and Messi make way more money than most players.
+  * Age vs Overall Rating: Correlation of .45; relationship isn’t constant, it’s positive until about age 29-30, then negative (i.e. players get better until about age 30 then start to decline)
+  * Aggression vs Penalties: Correlation of .34. Interestingly, there are two main clusters, and not many players have a “Penalties” value between 25 and 35.
+  * Ball Control vs Dribbling: Correlation of .55. Not many players have a “Ball Control” value between 25 and 45.
+  * Ball Control vs Finishing: Correlation of .79. A strong linear relationship.
+2. What attributes are the most predictive of a player’s overall rating (using ML)? 
+  * The player’s wage is a strong indicator of their overall rating (MSE of 9.59). When you add the players “Potential” and their age, the classifier is very good (MSE of 1.57). This could be because players with lower wages can still have a good overall rating if they are young and on a rookie contract.
 
 ## Design
+
+### Interactive Correlation Plots
+
+<b>How to Interact</b>
+
+This visualization allows users to explore the relationship between certain player attributes. The user selects two of the quantitative variables in the dataset and the app will output their correlation, as well as a plot of the two variables with a fitted regression line. Users may also select a third variable to represent the point color on the plot if they wish. The resulting plot has a hover feature that will show the name and the position of the player that point represents.
+
+<b>Design Process and Rationale</b>
+
+Given the large number of variables, I thought this would be an effective way for users to explore the dataset and get a feel for the different variables and how they’re related. Additionally, given the high concentration of points in the plot, I thought having a low opacity for the points made sense, since this makes it easier to see which areas have a lot of points in them.
+
+### Machine Learning Tool
+
+<b>How to Interact</b>
+
+Users can select a target variable, and one or more predictor variables from the dataset. The application will build a regression model using the selected variables, and output the mean squared error on a testing data set, as well a residual plot from the classifier.
+
+<b>Design Process and Rationale</b>
+
+We thought it would be cool to let users see how well attributes of players can be predicted given other attributes. This also builds off of the last visualization and lets users continue their exploration into the relationship between variables. I thought including a residual plot would allow users to see how well the model does over different values of the target variables, which is a very important feature of a machine learning model. The plot is also easy to interpret.
 
 ### Player World Map
 
