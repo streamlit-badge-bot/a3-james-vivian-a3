@@ -31,6 +31,20 @@ def load_player_stats():
     return dictionary, labels, columns
 
 
+@st.cache(allow_output_mutation=True)
+def load_continent_zoom_params():
+    dictionary = {
+        'All': (120, 0, 0),  # (scale, centerX, centerY)
+        'North America': (300, -90, 30),
+        'South America': (250, -50, -10),
+        'Europe': (450, 15, 50),
+        'Africa': (250, 30, 5),
+        'Asia': (250, 100, 30),
+        'Australia': (280, 100, -20),
+    }
+    return dictionary
+
+
 def write():
     st.header("FIFA Players Across the World")
     st.write("""Let's explore the distribution of footballers around the world.
@@ -39,6 +53,8 @@ def write():
 
     # Load in the data
     fifa_country_agg = load_data('data/clean_fifa_country_aggs.csv')
+    continents_zoom_params = load_continent_zoom_params()
+    continents = list(continents_zoom_params.keys())
 
     # Add sliders and checkboxes for users to configure visualization
     player_stats_dict, player_stats_labels, player_stats_columns = load_player_stats()
@@ -47,7 +63,11 @@ def write():
     # Show results for top N countries
     num_countries = fifa_country_agg.shape[0]
     st.markdown('### Show Top N Countries')
-    top_countries_count = st.slider('N', 0, num_countries, 50)
+    top_countries_count = st.slider('N', 0, num_countries, num_countries)
+
+    # Select continent to zoom into on map
+    select_continent = st.selectbox('Continent', options=continents, index=continents.index('All'))
+    st.subheader("Map: %s" % select_continent)
 
     # Select which player stats to show
     st.sidebar.markdown('### Show Player Stats')
@@ -88,8 +108,9 @@ def write():
         alt.Chart(graticule).mark_geoshape(stroke='white', strokeWidth=0.2),
         alt.Chart(source).mark_geoshape(fill='#9eb5a8', stroke='black')
     ).project(
-        type='equirectangular',
-
+        type='equirectangular',  # map type
+        scale=continents_zoom_params.get(select_continent)[0],
+        center=continents_zoom_params.get(select_continent)[1:3]
     ).properties(width=800, height=400).configure_view(stroke=None)
 
     hover = alt.selection(type='single', on='mouseover', nearest=True, fields=['Latitude', 'Longitude'])
