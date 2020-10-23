@@ -1,7 +1,7 @@
 # Exploring Football Players in FIFA 19
 
 ![Home Page](screenshots/home.png)
-![Home Page](screenshots/correlation.png)
+![Home Page](screenshots/correlation_plots.png)
 ![Home Page](screenshots/ml.png)
 ![Home Page](screenshots/player_world_map.png)
 
