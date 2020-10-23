@@ -31,6 +31,49 @@ In this project, we create interactive visualizations that enable users to learn
   * Ball Control vs Finishing: Correlation of .79. A strong linear relationship.
 2. What attributes are the most predictive of a player’s overall rating (using ML)? 
   * The player’s wage is a strong indicator of their overall rating (MSE of 9.59). When you add the players “Potential” and their age, the classifier is very good (MSE of 1.57). This could be because players with lower wages can still have a good overall rating if they are young and on a rookie contract.
+  
+3. Where are the top 25 countries (nationalities) of players with the highest international reputations clustered?
+* A majority of the countries are in Europe, with a few scattered in West Africa (e.g. Ghana and Côte d'Ivoire)  and lower South America (e.g. Brazil, Argentina, and Uruguay).
+
+4. What are the top 5 countries (nationalities) in terms of players with the highest international reputations:
+* Sweden, Germany, Argentina, Brazil, and Portugal all have players with International Ratings of 5 out of 5.
+
+5. Looking at the oldest players from each country (nationality), which 3 countries have some of the oldest players? The youngest players?
+* Oldest
+  * Mexico (age 45)
+  * United Kingdom / Trinidad and Tobago (tie - age 44)
+  * Japan (age 42)
+  
+* Youngest: 18 countries tied for having the youngest players (age 16): New Zealand, South Africa, Denmark, France, Colombia, Spain, Sweden, Ireland, Poland, Turkey, Belgium, Netherlands, Austria, Australia, United States, United Kingdom, Argentina
+
+6. What 3 countries of player origin (nationality) have the highest mean Player Overall Rating? Do the answers change when we look at mean Potential Rating?
+* Highest Mean Overall Rating
+  * United Arab Emirates (77)
+  * Central African Republic (73.3333)
+  * Israel (72.1420)
+  
+7 Highest Mean Potential Rating
+  * Dominican Republic (80.5)
+  * United Arab Emirates / Chad (tie - 78)
+  * Central African Republic (75)
+
+8. Which top 5 countries of player origin (nationality) have the highest mean Player Value (€)?
+* Highest Mean Player Value
+  * United Arab Emirates (105M)
+  * Dominican Republic (104M)
+  * Central African Republic (100.5M)
+  * Gabon (6.628M)
+  * Croatia (5.223M)
+
+9. Which top 5 countries of player origin (nationality) have the highest mean Player Wage (per week in €)?
+* Highest Mean Player Wage: 
+  * Dominican Republic (71,000)
+  * United Arab Emirates (39,000)
+  * Gabon (26,933.33)
+  * Armenia (22,000)
+  * Croatia (21,682.54)
+  
+The top countries of player origin with the highest mean Player Values and the top countries with the highest mean Player Wage were mostly the same (United Arab Emirates, Dominican Repuliblic, Gabon and Croatia all made the top 5 list for both). Interestingly, none of the top 5 countries with players with the highest International Reputatation (Question 4 - Sweden, Germany, Argentina, Brazil, and Portugal) were in either of these lists. Our interactive map allows users to add additional information like min and max Player Value and Wage to the tooltip when displaying the map configured for Q4. This allows them to see that those countries have a huge discrepancy between min and max Player Values and Wages. For example, the highest valued Brazilian player is valued at $118.5M while the lowest is valued at $0. The huge range between them indicates a huge range of talent among players from the countries in Q4. 
 
 ## Design
 
